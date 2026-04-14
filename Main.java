@@ -19,9 +19,10 @@ class Main{
     }
 }
 class hero{
-    //defines the attributes a hero may have
-    private String name;
-    private int power;
+    //defines the attributes a hero may have, use the protected keyword because it modifies access by only allowing access 
+    // to them by hero itself or classes that inherit hero
+    protected String name;
+    protected int power;
     //class constructor means that attribute values can be directly passed to object rather than hardcoded to main
     //allowing encapsulation
     hero(String name, int power){
@@ -43,45 +44,23 @@ class hero{
     }
 }
 
-class avengers{
-    //define the attributes that an avenger may have, this is also known as constructing the class
-    private String name;
-    private int power;
-    //providing a constructor means that attributes can be passed directly to the class instance rather 
-    // than being hard coded in main and exposed, this enforces encapsulation
+class avengers extends hero{
+    //constructor for avengers
     avengers(String name, int power){
-        this.name = name;
-        this.power = power;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-    public String getName(){
-        return name;
+        //keyword tells constructor take values up to hero constructor and initialise there
+        super(name, power);
     }
 
-    public void setPower(int power){
-        this.power = power;
-    }
-    public int getPower(){
-        return power;
-    }
-    
     void punch(){
         System.out.println("Ultron takes "+power+" damage.");
         System.out.println("Thanos only takes "+power/2+" damage because he's hench.");
     }
 }
 
-class viltrumite{
-    String name;
-    int power;
-    
+class viltrumite extends hero{
     viltrumite(String name, int power){
-        this.name = name;
-        this.power = power;
+        super(name, power);
     }
-
     //dont use static because otherwise it cannot use its own objects values/ it cannot have "this.power"
     int headChop(avengers a){
         int AvengerPower = a.getPower();
