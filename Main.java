@@ -49,6 +49,9 @@ class viltrumite{
     int headChop(avengers a){
         int AvengerPower = a.power;
         AvengerPower -= this.power;
+        if(AvengerPower < 0){
+            AvengerPower = 0;
+        }
         return AvengerPower;
         
     }
