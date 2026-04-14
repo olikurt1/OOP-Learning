@@ -18,6 +18,30 @@ class Main{
         System.out.println(ironManStatus);
     }
 }
+class hero{
+    //defines the attributes a hero may have
+    private String name;
+    private int power;
+    //class constructor means that attribute values can be directly passed to object rather than hardcoded to main
+    //allowing encapsulation
+    hero(String name, int power){
+        this.name = name;
+        this.power = power;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
+
+    public void setPower(int power){
+        this.power = power;
+    }
+    public int getPower(){
+        return power;
+    }
+}
 
 class avengers{
     //define the attributes that an avenger may have, this is also known as constructing the class
