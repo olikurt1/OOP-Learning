@@ -4,34 +4,47 @@ class Main{
     public static void main(String[] args){
         //creates an object of avengers type, this essentially provides a funnel into the class using the ironMan identifier
         avengers ironMan = new avengers("Tony Stark", 100);
-        //ironMan accesses the class through the intialiser above and .name specifies that the name attribute is being characterised
         
-        System.out.println("This hero's name is "+ironMan.name);
+        //main can no longer see ironMan's name straight from the class so instead the getter function had to be used to retrieve the name from the object
+        System.out.println("This hero's name is "+ironMan.getName());
         //calling the method within avengers 
         ironMan.punch();
 
         viltrumite vil1 = new viltrumite("OmniMan", 1000);
         int ironManDamage = vil1.headChop(ironMan);
-        ironMan.power = ironManDamage;
-        System.out.println("OmniMan attacked, IronMan's power is now "+ironMan.power+".");
-        String ironManStatus = (ironMan.power <= 0) ? "Iron Man is dead" : "Iron Man is still alive";
+        ironMan.setPower(ironManDamage);
+        System.out.println("OmniMan attacked, IronMan's power is now "+ironMan.getPower()+".");
+        String ironManStatus = (ironMan.getPower() <= 0) ? "Iron Man is dead" : "Iron Man is still alive";
         System.out.println(ironManStatus);
     }
 }
 
 class avengers{
     //define the attributes that an avenger may have, this is also known as constructing the class
-    String name;
-    int power;
+    private String name;
+    private int power;
     //providing a constructor means that attributes can be passed directly to the class instance rather 
-    // than being hard coded in main and exposed
+    // than being hard coded in main and exposed, this enforces encapsulation
     avengers(String name, int power){
         this.name = name;
         this.power = power;
     }
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
+
+    public void setPower(int power){
+        this.power = power;
+    }
+    public int getPower(){
+        return power;
+    }
     
     void punch(){
-        System.out.println("Ultron takes "+power+" damage or some shit.");
+        System.out.println("Ultron takes "+power+" damage.");
         System.out.println("Thanos only takes "+power/2+" damage because he's hench.");
     }
 }
@@ -47,7 +60,7 @@ class viltrumite{
 
     //dont use static because otherwise it cannot use its own objects values/ it cannot have "this.power"
     int headChop(avengers a){
-        int AvengerPower = a.power;
+        int AvengerPower = a.getPower();
         AvengerPower -= this.power;
         if(AvengerPower < 0){
             AvengerPower = 0;
