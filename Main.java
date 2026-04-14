@@ -3,19 +3,21 @@ package OOPtime;
 class Main{
     public static void main(String[] args){
         //creates an object of avengers type, this essentially provides a funnel into the class using the ironMan identifier
-        avengers ironMan = new avengers("Tony Stark", 100);
+        hero ironMan = new avengers("Tony Stark", 100);
+        viltrumite vil1 = new viltrumite("OmniMan", 1000);
         
         //main can no longer see ironMan's name straight from the class so instead the getter function had to be used to retrieve the name from the object
         System.out.println("This hero's name is "+ironMan.getName());
         //calling the method within avengers 
-        ironMan.punch();
+        ironMan.attack();
 
-        viltrumite vil1 = new viltrumite("OmniMan", 1000);
+        
         int ironManDamage = vil1.headChop(ironMan);
         ironMan.setPower(ironManDamage);
         System.out.println("OmniMan attacked, IronMan's power is now "+ironMan.getPower()+".");
         String ironManStatus = (ironMan.getPower() <= 0) ? "Iron Man is dead" : "Iron Man is still alive";
         System.out.println(ironManStatus);
+        vil1.attack();
     }
 }
 class hero{
@@ -42,6 +44,9 @@ class hero{
     public int getPower(){
         return power;
     }
+    void attack(){
+        System.out.println("Generic attack");
+    }
 }
 
 class avengers extends hero{
@@ -50,8 +55,10 @@ class avengers extends hero{
         //keyword tells constructor take values up to hero constructor and initialise there
         super(name, power);
     }
-
-    void punch(){
+    //uses the hero attack method but overrides it with its own, this way, can be initialised as a hero type but an avenger object 
+    //this is a use case of polymorphism where the parent/hero class steps in for the child/avengers or viltrumite class
+    @Override //this keyword strictly tells the program that the method is overriding its original in the parent class
+    void attack(){
         System.out.println("Ultron takes "+power+" damage.");
         System.out.println("Thanos only takes "+power/2+" damage because he's hench.");
     }
@@ -62,13 +69,17 @@ class viltrumite extends hero{
         super(name, power);
     }
     //dont use static because otherwise it cannot use its own objects values/ it cannot have "this.power"
-    int headChop(avengers a){
-        int AvengerPower = a.getPower();
-        AvengerPower -= this.power;
-        if(AvengerPower < 0){
-            AvengerPower = 0;
+    int headChop(hero h){
+        int heroPower = h.getPower();
+        heroPower -= this.power;
+        if(heroPower < 0){
+            heroPower = 0;
         }
-        return AvengerPower;
+        return heroPower;
         
+    }
+    //takes the hero attack method and overrides it with its own version
+    void attack(){
+        System.out.println(this.name+"'s enemy takes "+this.power/2+ " damage.");
     }
 }
