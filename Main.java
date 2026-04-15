@@ -11,8 +11,8 @@ class Main{
         //calling the method within avengers 
         ironMan.attack();
 
-        
-        int ironManDamage = vil1.attack(ironMan);
+        //the function doesnt need to have an argument because the object already knows who to attack because it was passed at initialisation
+        int ironManDamage = vil1.attack();
         ironMan.setPower(ironManDamage);
         System.out.println("OmniMan attacked, IronMan's power is now "+ironMan.getPower()+".");
         String ironManStatus = (ironMan.getPower() <= 0) ? "Iron Man is dead" : "Iron Man is still alive";
@@ -74,8 +74,10 @@ class viltrumite extends hero{
     }
     //dont use static because otherwise it cannot use its own objects values/ it cannot have "this.power"
     @Override
-    int attack(hero h){
-        int heroPower = h.getPower();
+    int attack(){
+        //Instead of taking the power of hte hero which viltrumite is attacking through the function, it retrieves it from the
+        //object as an existing attribute. 
+        int heroPower = this.hero.getPower();
         heroPower -= this.power;
         if(heroPower < 0){
             heroPower = 0;
